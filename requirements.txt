@@ -8,3 +8,4 @@ opencv-python
 ipython
 deslib
 seaborn
+keras
