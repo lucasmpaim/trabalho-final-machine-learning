@@ -32,12 +32,12 @@ def extract_hand_craft(base_location='base',
     features = features.reshape((shape[0] * shape[1], shape[2]))
 
     df = pd.DataFrame(features)
-    df.to_csv(f'{output_dir}/training/hand_craft_features.csv',
-              header=False, index=False)
+    df.to_csv(f'{output_dir}/training/hand_craft/features.csv',
+              header=False, index=False, sep=';')
 
     df = pd.DataFrame(Y)
-    df.to_csv(f'{output_dir}/training/Y.csv',
-              header=False, index=False)
+    df.to_csv(f'{output_dir}/training/hand_craft/Y.csv',
+              header=False, index=False, sep=';')
 
 
 def extract_class_features(class_dir):
@@ -56,7 +56,7 @@ def extract_image_features(image_dir):
     lbp = calculate_lbp(grey)
     hog = calculate_hog(grey)
 
-    features = [lbp, hog, color_histogram.r, color_histogram.g, color_histogram.b]
+    features = [image_dir, lbp, hog, color_histogram.r, color_histogram.g, color_histogram.b]
     X_aux = []
     for aux in features:
         X_aux = np.append(X_aux, np.ravel(aux))
