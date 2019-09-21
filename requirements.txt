@@ -9,3 +9,4 @@ ipython
 deslib
 seaborn
 keras
+tensorflow

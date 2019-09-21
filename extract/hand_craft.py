@@ -14,9 +14,9 @@ ImageFeatures = collections.namedtuple('ImageFeatures', 'X Y')
 
 
 def extract_hand_craft(base_location='base',
-                       output_dir='output'):
-    classes = get_classes(base_location)
+                       output_dir='output/training/hand_craft'):
 
+    classes = get_classes(base_location)
     features = []
     Y = []
 
@@ -32,11 +32,11 @@ def extract_hand_craft(base_location='base',
     features = features.reshape((shape[0] * shape[1], shape[2]))
 
     df = pd.DataFrame(features)
-    df.to_csv(f'{output_dir}/training/hand_craft/features.csv',
+    df.to_csv(f'{output_dir}/features.csv',
               header=False, index=False, sep=';')
 
     df = pd.DataFrame(Y)
-    df.to_csv(f'{output_dir}/training/hand_craft/Y.csv',
+    df.to_csv(f'{output_dir}/Y.csv',
               header=False, index=False, sep=';')
 
 
@@ -49,7 +49,6 @@ def extract_class_features(class_dir):
 
 
 def extract_image_features(image_dir):
-    print(image_dir)
     img = cv2.imread(image_dir)
     grey, rgb = convert_image(img)
     color_histogram = calculate_color_histogram(rgb)
