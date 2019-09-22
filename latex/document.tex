@@ -41,7 +41,7 @@ a4paper,			% tamanho do papel.
 % -- opções do pacote babel --
 english,			% idioma adicional para hifenização
 brazil,				% o último idioma é o principal do documento
-sumario=tradicional
+sumario=tradicional,
 ]{abntex2}
 
 
@@ -160,7 +160,7 @@ sumario=tradicional
 % ----
 \begin{document}
 	
-	% Seleciona o idioma do documento (conforme pacotes do babel)
+	% Seleciona o idioma do documento (conforme pacotes do )
 	%\selectlanguage{english}
 	\selectlanguage{brazil}
 	
@@ -189,9 +189,9 @@ sumario=tradicional
 	
 	% resumo em português
 	\begin{resumoumacoluna}
-		Este trabalho tem por objetivo comparar os indutores apresentados durante a disciplina de Machine Learning do programa de especialização em Inteligência Artificial Aplicada da Pontifícia Universidade Católica do Paraná, para predição de classificação de imagens utilizando principalmente a bilioteca scikit-learn e a linguagem Python assim como a demonstração de técnicas de combinação de indicadores e seleção dinâmica.
+		Este trabalho tem por objetivo comparar os indutores apresentados durante a disciplina de Machine Learning do programa de especialização em Inteligência Artificial Aplicada da Pontifícia Universidade Católica do Paraná, para predição de classificação de imagens, utilizando principalmente a bilioteca scikit-learn e a linguagem Python, assim como a demonstração de técnicas de combinação de indicadores e seleção dinâmica.
 
-		Tem por objetivo também a comparação dos resultados utilizando técnicas de extração de características manuais, handcrafted, e CNN, deep-learning.
+		Tem por objetivo também a comparação dos resultados utilizando técnicas de extração de características manuais, handcrafted, e CNN deep-learning.
 
 		Para a extração de características de imagens foram utilizados as bibliotecas: opencv-python, skimage e keras
 
@@ -241,7 +241,27 @@ sumario=tradicional
 	% ----------------------------------------------------------
 	\section{Introdução}
 	
-Introdução...
+	A utilização de classificadores de imagens é utilizada nas mais diversas áreas do conhecimento,  que vão desde o auxílio de diagnóstico de câncer de pele  \citeonline{svm-cancer}, sistemas de segmentação e classificação de imagens via satélite \citeonline{seg-imagens-satelite}, OCR's (Optical Character Recognition) para reconhecimento de textos e dígitos \citeonline{ocr-digitos} etc.
+	
+	Os mesmos indutores também podem ser utilizados para outras finalidades que não sejam classificação de imagem, como: detecção de emoções em processamento de textos \citeonline{emocoes-em-texto}, regressão linear etc.
+	
+	Segundo \citeonline{benIA}, fornecer a capacidade de visão a sistemas computacionais, assim como a robôs, agentes é algo, sem dúvida, extremamente desejável, sendo assim é uma área que ainda vale a pena ser explorada.
+	
+	As técnicas de extração de caracterísicas de imagens handcrafted que foram utilizadas são: 
+	
+	\begin{itemize}
+		\item LBP: Local Binnary Pattern: Segundo, \citeonline{lbp-opencv}, esta é uma técnica de extração de texturas de uma imagem, em que cada pixel é comparado com seus vizinhos a partir de uma máscara e com isso é gerado uma sequência binária que toma o lugar daquele pixel. 
+		\item HOG: Histogram of Oriented Gradients: Segundo \citeonline{hog-opencv} é uma técnica de extrai a distribuição (Historgramas) de direções de gradientes.
+		\item Histograma de Cores RGB.
+	\end{itemize}
+
+	A base utilizada para este trabalho, conta com apenas mil imagens, separadas em dez classes com cem imagens cada, sendo assim, é uma base completamente balanceada para este trabalho, que tem por objetivo comparar alguns indutores e técnicas de combinação e seleção dinâmica.
+	
+	
+	
+	\section{Árvore de Decisão}
+	
+	A técnica de
 	
 	% ----------------------------------------------------------
 	% Seção de explicações
@@ -408,7 +428,7 @@ Introdução...
 	% ----------------------------------------------------------
 	% Referências bibliográficas
 	% ----------------------------------------------------------
-	\bibliography{abntex2-modelo-references}
+	\bibliography{references}
 	
 	% ----------------------------------------------------------
 	% Glossário
