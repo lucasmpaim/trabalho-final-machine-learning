@@ -30,6 +30,8 @@ def extract_deep(base_location='base',
     shape = features.shape
     features = features.reshape((shape[0] * shape[1], shape[2]))
 
+    print(features.shape)
+
     df = pd.DataFrame(features)
     df.to_csv(f'{output_dir}/features.csv',
               header=False, index=False, sep=';')
