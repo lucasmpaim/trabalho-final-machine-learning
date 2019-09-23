@@ -97,7 +97,7 @@ sumario=tradicional,
 \tituloestrangeiro{}
 
 \autor{
-	Lucas Mrowskovsy Paim\thanks{Programa de Pós Graduação em Inteligência Aritificial - R. Imac. Conceição, 1155 - Prado Velho, Curitiba - PR, 80215-901; Especializando em Inteligência Artificial Aplicada na PUCPR; Tecnólogo em Sistemas para Internet pela Universidade Positivo; E-mail: lucasmpaim1@gmail.com} }
+	Lucas Mrowskovsy Paim\thanks{Programa de Pós Graduação em Inteligência Aritificial, Curitiba - PR, 80215-901; Especializando em Inteligência Artificial Aplicada na PUCPR; Tecnólogo em Sistemas para Internet pela Universidade Positivo; E-mail: lucasmpaim1@gmail.com} }
 \local{Brasil}
 \data{2019}
 % ---
@@ -245,7 +245,7 @@ sumario=tradicional,
 	
 	Os mesmos indutores também podem ser utilizados para outras finalidades que não sejam classificação de imagem, como: detecção de emoções em processamento de textos \citeonline{emocoes-em-texto}, regressão linear etc.
 	
-	Segundo \citeonline{benIA}, fornecer a capacidade de visão a sistemas computacionais, assim como a robôs, agentes é algo, sem dúvida, extremamente desejável, sendo assim é uma área que ainda vale a pena ser explorada.
+	Segundo \citeonline{benIA}, fornecer a capacidade de visão a sistemas computacionais, assim como a robôs, agentes é algo, sem dúvida, extremamente desejável.
 	
 	As técnicas de extração de caracterísicas de imagens handcrafted que foram utilizadas são: 
 	
@@ -254,12 +254,23 @@ sumario=tradicional,
 		\item HOG: Histogram of Oriented Gradients: Segundo \citeonline{hog-opencv} é uma técnica de extrai a distribuição (Historgramas) de direções de gradientes.
 		\item Histograma de Cores RGB.
 	\end{itemize}
-
-	A base utilizada para este trabalho, conta com apenas mil imagens, separadas em dez classes com cem imagens cada, sendo assim, é uma base completamente balanceada para este trabalho, que tem por objetivo comparar alguns indutores e técnicas de combinação e seleção dinâmica.
 	
 	
+	% Visto o exposto o estudo desse trabalho se torna importante para ...., Podendo ser aplicado em diversas áreas, tendo por objetivo ...
 	
-	\section{Árvore de Decisão}
+	Visto o exposto o estudo desse trabalho se torna importante para a área de classifição de imagens, Podendo ser aplicado em diversas áreas, tendo por objetivo criar modelos de predição para classifição de imagens comparando vários indutores e os combinando para gerar maiores assertividades.
+	
+	
+	\section{Método}
+	
+	
+	A base utilizada para este trabalho, conta com apenas mil imagens, separadas em dez classes com cem imagens cada, sendo assim, é uma base completamente balanceada para este trabalho.
+	
+	Todos os indutores, foram treinados utilizando a mesma base de imagens, esta em um primeiro momento foi separada em 70\%  em treinamento e 30\% em testes, técnica esta chamada de holdout (percentage-split), após esta separação ainda foi separado mais 30\% da base de treinamento em uma base de validação, para evitar assim o chamado overfitting, que segundo \citeonline{overfitting}, é um dos maiores problemas da aprendizagem de máquina, isto ocorre quando o indutor perde sua capacidade de generalização, isto é, segundo \citeonline{isIA} a capacidade do indutor responder adequadamente a dados que não fazem parte do conjunto de treinamento.
+	
+	Para a comparação dos indutores será avaliado, com base em holdout e também em validação cruzada que segundo, \citeonline{basic-concepts}, consiste em dividir a base de dados em N grupos, em que um desses grupos é selecionado para teste e isto é repetido N vezes, garantindo assim que todas as instâncias serão utilizadas como teste ao menos uma vez.
+	
+	\subsection{Árvores de decição}
 	
 	A técnica de
 	
