@@ -270,6 +270,42 @@ sumario=tradicional,
 	
 	Para a comparação dos indutores será avaliado, com base em holdout e também em validação cruzada que segundo, \citeonline{basic-concepts}, consiste em dividir a base de dados em N grupos, em que um desses grupos é selecionado para teste e isto é repetido N vezes, garantindo assim que todas as instâncias serão utilizadas como teste ao menos uma vez.
 	
+	Devido ao não suporte dos métodos de overfitting para alguns indicadores, este trabalho utiliza, quando disponível, o método:
+	
+	\begin{verbatim}
+	.partial_fit(X, y, [classes])
+	\end{verbatim}
+	
+	Este método segundo \citeonline{incremental-learning}, é ideal para treinamento incremental e apenas alguns classificadores suportam este método, sendo assim, podemos extender a lógica do early stopping para alguns indicadores que não suportam tal método nativamente, como o Naive Bayes.
+	
+	Como o método incremental, tende a adicionar ruído na base de dados, foi utilizado o método de IIR, que segundo \citeonline{iir-concepts} é um filtro recursivo em que a saída do filtro é calculada usando as entradas atuais e anteriores e as saídas anteriores, fazendo assim com que o ruído seja minimizado, esta técnica foi utilizada para reduzir o ruído no tratamento de erro tanto da base de validação quanto da base de teste.
+	
+	Sua fórmula consiste em:
+	
+	\begin{equation}
+	y_t = \sum_{i=0}^M b_jx_(t-i) - \sum_{j=1}^{L} \alpha_j y_(t-j)
+	\end{equation}
+	
+	O resultado da aplicação desta técnica pode ser consultada na  \autoref{fig_smooth_example}, onde é possível observar que o gráfico foi suavizado, de forma que, quando ambas as bases forem confrontadas será possível detectar mais fácilmente onde está ocorrendo o overfitting.
+	
+	Para a detecção de overffiting foi utilizada a seguinte fórmula:
+	
+	\begin{equation}
+	r = |\int  y_t' dx - \int y_t''dx|
+	\end{equation}
+	
+	Onde \( y_t'  \)' se refere a integral parcial dos últimos elementos para os últimos indicadores de erro da base treinamento, e \( y_t'' \) se refere ao subconjunto equivalente existente para os indicadores de erro da base de validação.
+	
+	Sendo assim podemos definir a integral entre as duas curvas de aprendizado como sendo:
+	
+	\begin{equation}
+	d = |r' - r''|
+	\end{equation}
+	
+	Onde \(r'\) se refere a diferença entre as integrais considerando os últimos elementos conhecidos dos indicadores de erro da base treimaneto e validação e \(r''\) a mesma coisa, porém para o subconjunto anterior ao utilizado por \(r'\), desta forma quando há um valor para \(d > 0.01\) que é uma margen aceitável para erro e \( r'' > r' \) por algumas vezes seguidas. significa que as duas curvas estão se distanciando, sendo assim o treinamento pode ser interrompido devido a overffiting.
+	
+	A diferença da aplicação deste método pode ser comparado entre a  \autoref{with_overfitting} e \autoref{without_overfitting}.
+ 	
 	\subsection{Naive Bayes}
 	
 	A técnica de Naive Bayes consiste em 
@@ -482,13 +518,31 @@ sumario=tradicional,
 	%\anexos
 	\begin{anexosenv}
 		
-		% ---
-		\chapter{Cras non urna sed feugiat cum sociis natoque penatibus et magnis dis
-			parturient montes nascetur ridiculus mus}
-		% ---
+
+		\begin{figure}[htb]
+			\caption{\label{fig_smooth_example}Comparação do Erro com e sem IIR}
+			\begin{center}
+				\includegraphics[scale=0.5]{smooth_compare.png}
+			\end{center}
+			\legend{Fonte: O Autor}
+		\end{figure}
 		
-		\lipsum[31]
+		\begin{figure}[htb]
+			\caption{\label{with_overfitting}Gráfico de treinamento sem detectar Overfitting}
+			\begin{center}
+				\includegraphics[scale=0.5]{with_overfitting.png}
+			\end{center}
+			\legend{Fonte: O Autor}
+		\end{figure}
 		
+		
+		\begin{figure}[htb]
+			\caption{\label{without_overfitting}Gráfico de treinamento com a detecção de  Overfitting}
+			\begin{center}
+				\includegraphics[scale=0.5]{without_overfitting.png}
+			\end{center}
+			\legend{Fonte: O Autor}
+		\end{figure}
 	\end{anexosenv}
 	
 	% ----------------------------------------------------------

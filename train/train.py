@@ -38,14 +38,16 @@ def train_holdout(base_dir, classifier_name, classifier):
                                                                         random_state=42, stratify=y_train)
 
         chunk_size = 10
-        error_on_validation = 0.0
-        error_on_training = 0.0
 
         graphic_data = []
         current_epoch = 0
 
+        alpha = 0.8
+        smooth_error_training = []
+        smooth_error_validation = []
+        overfitting_count = 0
+
         for chunk in chunk_generator(pd.concat([X_train, y_train], axis=1), chunk_size=chunk_size):
-            current_epoch += 1
             classifier.partial_fit(chunk[0], np.ravel(chunk[1]), classes=all_classes)
 
             current_error_on_training = 1 - classifier.score(X_test, np.ravel(y_test))
@@ -57,22 +59,48 @@ def train_holdout(base_dir, classifier_name, classifier):
                             error_on_train=current_error_on_training)
             )
 
-            if (current_error_on_training < error_on_training and
-                    current_error_on_validation > error_on_validation):
-                # STOP! OVERFITTING
-                print(f'Stop training {classifier_name}, overfitting detected')
-                break
+            if current_epoch == 0:
+                smooth_error_training.append(current_error_on_training)
+                smooth_error_validation.append(current_error_on_validation)
+            else:
+                smooth_error_training.append(
+                    alpha * smooth_error_training[current_epoch - 1] + (1 - alpha) * graphic_data[
+                        current_epoch - 1].error_on_train)
+                smooth_error_validation.append(
+                    alpha * smooth_error_validation[current_epoch - 1] + (1 - alpha) * graphic_data[
+                        current_epoch - 1].error_on_val)
 
-            error_on_training = current_error_on_training
-            error_on_validation = current_error_on_validation
+            if current_epoch > 8:
+                x1 = [data.x for data in graphic_data[-4:]]
+                x2 = [data.x for data in graphic_data[-8:-4]]
 
-        print(f'Acurácia {classifier_name} Valida: {classifier.score(X_validation, np.ravel(y_validation))}')
+                now = abs(np.trapz(smooth_error_training[-4:], x1) - np.trapz(smooth_error_validation[-4:], x1))
+                before = abs(np.trapz(smooth_error_training[-8:-4], x2) - np.trapz(smooth_error_validation[-8:-4], x2))
+
+                if now > before and abs(now - before) > 0.01:
+                    overfitting_count += 1
+                    if overfitting_count >= 5:
+                        print(f'Overfitting Detected on {classifier_name}, epoch: {current_epoch}')
+                        break
+                else:
+                    overfitting_count = 0
+
+            current_epoch += 1
+
+        print(f'Acurácia {classifier_name} Validação: {classifier.score(X_validation, np.ravel(y_validation))}')
 
         plt.title(f'Error Compare --> {classifier_name} --> {base_dir}')
+        # plt.plot([data.x for data in graphic_data],
+        #          [data.error_on_train for data in graphic_data], label='Error on Train')
+
+        # plt.plot([data.x for data in graphic_data],
+        #          [data.error_on_val for data in graphic_data], label='Error on Validation')
+
         plt.plot([data.x for data in graphic_data],
-                 [data.error_on_train for data in graphic_data], label='Error on Train')
+                 smooth_error_training, label='Error on Train Smooth')
         plt.plot([data.x for data in graphic_data],
-                 [data.error_on_val for data in graphic_data], label='Error on Validation')
+                 smooth_error_validation, label='Error on Validation Smooth')
+
         plt.ylabel('Error')
         plt.xlabel('Epoch')
         plt.legend()
