@@ -7,6 +7,7 @@ import seaborn as sns
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.manifold.t_sne import TSNE
 
 GraphicData = collections.namedtuple('GraphicData', 'x error_on_val error_on_train')
 
@@ -110,6 +111,24 @@ def train_holdout(base_dir, classifier_name, classifier):
     def normal_fit():
         classifier.fit(X_train, y_train)
 
+    def visualizate_data():
+        X_Embedded_train = TSNE(n_components=2).fit_transform(X_train)
+        X_Embedded = TSNE(n_components=2).fit_transform(X_test)
+
+        plt.figure(figsize=(16, 10))
+        sns.scatterplot(data=X_Embedded_train, legend='Training Data', hue="y",
+                        palette=sns.color_palette("hls", 10))
+        plt.show()
+
+        all_classes = np.unique(y.to_numpy())
+        for i, c, pallete in zip(all_classes.shape[1], all_classes, sns.color_palette("hls", all_classes.shape[1])):
+            plt.figure(figsize=(16, 10))
+            sns.scatterplot(X_Embedded[y_test == c, 0], X_Embedded[y_test == c, 1],
+                            data=X_Embedded, legend='Test Data',
+                            hue="y",
+                            palette=pallete)
+            plt.show()
+
     if hasattr(classifier, 'partial_fit'):
         overfitting_prevent_train(X_train, y_train)
     else:
@@ -129,6 +148,9 @@ def train_holdout(base_dir, classifier_name, classifier):
     plt.title(f'Confusion Matrix --> {classifier_name} --> {base_dir}')
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
+    plt.show()
+
+    visualizate_data()
     plt.show()
 
     if isinstance(classifier, DecisionTreeClassifier):
