@@ -264,9 +264,9 @@ sumario=tradicional,
 	\section{Método}
 	
 	
-	A base utilizada para este trabalho, conta com apenas mil imagens, separadas em dez classes com cem imagens cada, sendo assim, é uma base completamente balanceada para este trabalho.
+	A base utilizada para este trabalho, conta com apenas mil imagens, separadas em dez classes com cem imagens cada, sendo assim, é uma base completamente balanceada.
 	
-	Todos os indutores, foram treinados utilizando a mesma base de imagens, esta em um primeiro momento foi separada em 70\%  em treinamento e 30\% em testes, técnica esta chamada de holdout (percentage-split), após esta separação ainda foi separado mais 30\% da base de treinamento em uma base de validação, para evitar assim o chamado overfitting, que segundo \citeonline{overfitting}, é um dos maiores problemas da aprendizagem de máquina, isto ocorre quando o indutor perde sua capacidade de generalização, isto é, segundo \citeonline{isIA} a capacidade do indutor responder adequadamente a dados que não fazem parte do conjunto de treinamento.
+	Todos os indutores, foram treinados utilizando a mesma base de imagens, em um primeiro momento ela é separada em 70\%  em treinamento e 30\% em testes, técnica esta chamada de holdout (percentage-split), após esta separação ainda foi separado mais 30\% da base de treinamento e criada uma base de validação, para evitar assim o chamado overfitting, que segundo \citeonline{overfitting}, é um dos maiores problemas da aprendizagem de máquina, isto indica que o indutor está perdendo sua capacidade de generalização, isto é, segundo \citeonline{isIA} a capacidade do indutor responder adequadamente a dados que não fazem parte do conjunto de treinamento.
 	
 	Para a comparação dos indutores será avaliado, com base em holdout e também em validação cruzada que segundo, \citeonline{basic-concepts}, consiste em dividir a base de dados em N grupos, em que um desses grupos é selecionado para teste e isto é repetido N vezes, garantindo assim que todas as instâncias serão utilizadas como teste ao menos uma vez.
 	
@@ -276,9 +276,9 @@ sumario=tradicional,
 	.partial_fit(X, y, [classes])
 	\end{verbatim}
 	
-	Este método segundo \citeonline{incremental-learning}, é ideal para treinamento incremental e apenas alguns classificadores suportam este método, sendo assim, podemos extender a lógica do early stopping para alguns indicadores que não suportam tal método nativamente, como o Naive Bayes.
+	Este método segundo \citeonline{incremental-learning}, é ideal para treinamento incremental, sendo assim, é possível extender a lógica do early stopping para alguns indicadores que não suportam tal método nativamente, como o Naive Bayes.
 	
-	Como o método incremental, tende a adicionar ruído na base de dados, foi utilizado o método de IIR, que segundo \citeonline{iir-concepts} é um filtro recursivo em que a saída do filtro é calculada usando as entradas atuais e anteriores e as saídas anteriores, fazendo assim com que o ruído seja minimizado, esta técnica foi utilizada para reduzir o ruído no tratamento de erro tanto da base de validação quanto da base de teste.
+	Como o método incremental, tende a adicionar ruído na base de dados, foi utilizado o método de IIR (Infinite Impulse Response), que segundo \citeonline{iir-concepts} é um filtro recursivo em que a saída do filtro é calculada usando as entradas atuais e anteriores e as saídas anteriores, fazendo assim com que o ruído seja minimizado, este filtro foi aplicado no tratamento de erro tanto da base de validação quanto da base de teste.
 	
 	Sua fórmula consiste em:
 	
@@ -308,149 +308,32 @@ sumario=tradicional,
  	
 	\subsection{Naive Bayes}
 	
-	A técnica de Naive Bayes consiste em 
+	Segundo, \citeonline{naive-bayes-britto}, o teorema de Bayes consiste em uma abordagem probabilística para aprendizagem, calculando assim a probabilidade de uma característica \(X\) de um vetor de prever determinada classe.
+	
+	A técnica de Naive Bayes, assume que todas as caractéristicas no vetor são independentes, por isso, é chamado de Naive (do inglês Ingênuo), pois determinadas caracterísicas podem estar relacionadas entre si, o que faz com que essa técnica tenha um resultado inferior a ténica de Redes Bayesianas que consideram que os atributos podem ou não ser relacionados, isto é, a característica \(X\) pode ou não estar diretamente relacionada a característica \(Y\).
+	
+	\subsubsection{Resultados do Treinamento}
+	
+	A matriz de confusão para o esta técnica usando houldout e a base de características usando deeplearning pode ser consultada em \autoref{confusion-matrix-naive-holdout-deep}, assim como sua taxa de aprendizagem \autoref{with_overfitting}
+	
+	\begin{verbatim}
+		Overfitting Detected on Naive Bayes, epoch: 38
+		Acurácia Naive Bayes Validação : 0.8761904761904762
+		Acurácia Naive Bayes Teste     : 0.9133333333333333
+	\end{verbatim}
+	
+	Para o método usando as características extraídas de forma hand crafting, a curva de erro na aprendizagem pode ser consultado na \autoref{error-naive-bayes-hand-craft-holdout}, assim como sua matriz de confução na \autoref{confusion-matrix-naive-holdout-hand-craft}.
+	
+	\begin{verbatim}
+		Overfitting Detected on Naive Bayes, epoch: 14
+		Acurácia Naive Bayes Validação : 0.6761904761904762
+		Acurácia Naive Bayes Teste     : 0.7466666666666667
+	\end{verbatim}
 	
 	\subsection{Árvores de decição}
 	
 	A técnica de
 	
-	% ----------------------------------------------------------
-	% Seção de explicações
-	% ----------------------------------------------------------
-	\section{Exemplos de comandos}
-	
-	\subsection{Margens}
-	
-	A norma ABNT NBR 6022:2018 não estabelece uma margem específica a ser utilizada
-	no artigo científico. Dessa maneira, caso deseje alterar as margens, utilize os
-	comandos abaixo:
-	
-	\begin{verbatim}
-	\setlrmarginsandblock{3cm}{3cm}{*}
-	\setulmarginsandblock{3cm}{3cm}{*}
-	\checkandfixthelayout
-	\end{verbatim}
-	
-	\subsection{Duas colunas}
-	
-	É comum que artigos científicos sejam escritos em duas colunas. Para isso,
-	adicione a opção \texttt{twocolumn} à classe do documento, como no exemplo:
-	
-	\begin{verbatim}
-	\documentclass[article,11pt,oneside,a4paper,twocolumn]{abntex2}
-	\end{verbatim}
-	
-	É possível indicar pontos do texto que se deseja manter em apenas uma coluna,
-	geralmente o título e os resumos. Os resumos em única coluna em documentos com
-	a opção \texttt{twocolumn} devem ser escritos no ambiente
-	\texttt{resumoumacoluna}:
-	
-	\begin{verbatim}
-	\twocolumn[              % INICIO DE ARTIGO EM DUAS COLUNAS
-	
-	\maketitle             % pagina de titulo
-	
-	\renewcommand{\resumoname}{Nome do resumo}
-	\begin{resumoumacoluna}
-	Texto do resumo.
-	
-	\vspace{\onelineskip}
-	
-	\noindent
-	\textbf{Palavras-chave}: latex. abntex. editoração de texto.
-	\end{resumoumacoluna}
-	
-	]                        % FIM DE ARTIGO EM DUAS COLUNAS
-	\end{verbatim}
-	
-	\subsection{Recuo do ambiente \texttt{citacao}}
-	
-	Na produção de artigos (opção \texttt{article}), pode ser útil alterar o recuo
-	do ambiente \texttt{citacao}. Nesse caso, utilize o comando:
-	
-	\begin{verbatim}
-	\setlength{\ABNTEXcitacaorecuo}{1.8cm}
-	\end{verbatim}
-	
-	Quando um documento é produzido com a opção \texttt{twocolumn}, a classe
-	\textsf{abntex2} automaticamente altera o recuo padrão de 4 cm, definido pela
-	ABNT NBR 10520:2002 seção 5.3, para 1.8 cm.
-	
-	\section{Cabeçalhos e rodapés customizados}
-	
-	Diferentes estilos de cabeçalhos e rodapés podem ser criados usando os
-	recursos padrões do \textsf{memoir}.
-	
-	Um estilo próprio de cabeçalhos e rodapés pode ser diferente para páginas pares
-	e ímpares. Observe que a diferenciação entre páginas pares e ímpares só é
-	utilizada se a opção \texttt{twoside} da classe \textsf{abntex2} for utilizado.
-	Caso contrário, apenas o cabeçalho padrão da página par (\emph{even}) é usado.
-	
-	Veja o exemplo abaixo cria um estilo chamado \texttt{meuestilo}. O código deve
-	ser inserido no preâmbulo do documento.
-	
-	\begin{verbatim}
-	%%criar um novo estilo de cabeçalhos e rodapés
-	\makepagestyle{meuestilo}
-	%%cabeçalhos
-	\makeevenhead{meuestilo} %%pagina par
-	{topo par à esquerda}
-	{centro \thepage}
-	{direita}
-	\makeoddhead{meuestilo} %%pagina ímpar ou com oneside
-	{topo ímpar/oneside à esquerda}
-	{centro\thepage}
-	{direita}
-	\makeheadrule{meuestilo}{\textwidth}{\normalrulethickness} %linha
-	%% rodapé
-	\makeevenfoot{meuestilo}
-	{rodapé par à esquerda} %%pagina par
-	{centro \thepage}
-	{direita} 
-	\makeoddfoot{meuestilo} %%pagina ímpar ou com oneside
-	{rodapé ímpar/onside à esquerda}
-	{centro \thepage}
-	{direita}
-	\end{verbatim}
-	
-	Para usar o estilo criado, use o comando abaixo imediatamente após um dos
-	comandos de divisão do documento. Por exemplo:
-	
-	\begin{verbatim}
-	\begin{document}
-	%%usar o estilo criado na primeira página do artigo:
-	\pretextual
-	\pagestyle{meuestilo}
-	
-	\maketitle
-	...
-	
-	%%usar o estilo criado nas páginas textuais
-	\textual
-	\pagestyle{meuestilo}
-	
-	\chapter{Novo capítulo}
-	...
-	\end{document}  
-	\end{verbatim}
-	
-	Outras informações sobre cabeçalhos e rodapés estão disponíveis na seção 7.3 do
-	manual do \textsf{memoir} \cite{memoir}.
-	
-	\section{Mais exemplos no Modelo Canônico de Trabalhos Acadêmicos}
-	
-	Este modelo de artigo é limitado em número de exemplos de comandos, pois são
-	apresentados exclusivamente comandos diretamente relacionados com a produção de
-	artigos.
-	
-	Para exemplos adicionais de \abnTeX\ e \LaTeX, como inclusão de figuras,
-	fórmulas matemáticas, citações, e outros, consulte o documento
-	\citeonline{abntex2modelo}.
-	
-	\section{Consulte o manual da classe \textsf{abntex2}}
-	
-	Consulte o manual da classe \textsf{abntex2} \cite{abntex2classe} para uma
-	referência completa das macros e ambientes disponíveis.
 	
 	% ---
 	% Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
@@ -518,9 +401,8 @@ sumario=tradicional,
 	%\anexos
 	\begin{anexosenv}
 		
-
 		\begin{figure}[htb]
-			\caption{\label{fig_smooth_example}Comparação do Erro com e sem IIR}
+			\caption{\label{fig_smooth_example} Comparação do Erro com e sem IIR, usando Holdout}
 			\begin{center}
 				\includegraphics[scale=0.5]{smooth_compare.png}
 			\end{center}
@@ -528,7 +410,7 @@ sumario=tradicional,
 		\end{figure}
 		
 		\begin{figure}[htb]
-			\caption{\label{with_overfitting}Gráfico de treinamento sem detectar Overfitting}
+			\caption{\label{with_overfitting}Gráfico de treinamento sem detectar Overfitting, usando Holdout}
 			\begin{center}
 				\includegraphics[scale=0.5]{with_overfitting.png}
 			\end{center}
@@ -537,12 +419,37 @@ sumario=tradicional,
 		
 		
 		\begin{figure}[htb]
-			\caption{\label{without_overfitting}Gráfico de treinamento com a detecção de  Overfitting}
+			\caption{\label{without_overfitting}Gráfico de treinamento com a detecção de  Overfitting, usando Holdout}
 			\begin{center}
 				\includegraphics[scale=0.5]{without_overfitting.png}
 			\end{center}
 			\legend{Fonte: O Autor}
 		\end{figure}
+	
+		\begin{figure}[htb]
+			\caption{\label{confusion-matrix-naive-holdout-deep}Matrix de confusão Naive Bayes, usando Holdout}
+			\begin{center}
+				\includegraphics[scale=0.5]{confusion-matrix-naive-holdout-deep.png}
+			\end{center}
+			\legend{Fonte: O Autor}
+		\end{figure}
+	
+			\begin{figure}[htb]
+			\caption{\label{error-naive-bayes-hand-craft-holdout}Gráfico de treinamento Naive Bayes, usando Holdout}
+			\begin{center}
+				\includegraphics[scale=0.5]{error-naive-bayes-hand-craft-holdout.png}
+			\end{center}
+			\legend{Fonte: O Autor}
+		\end{figure}
+	
+			\begin{figure}[htb]
+		\caption{\label{confusion-matrix-naive-holdout-hand-craft}Matrix de confusão Naive Bayes, usando Holdout}
+		\begin{center}
+			\includegraphics[scale=0.5]{confusion-matrix-naive-holdout-hand-craft.png}
+		\end{center}
+		\legend{Fonte: O Autor}
+	\end{figure}
+	
 	\end{anexosenv}
 	
 	% ----------------------------------------------------------
