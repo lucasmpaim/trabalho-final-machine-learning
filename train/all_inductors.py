@@ -16,8 +16,8 @@ rng = np.random.RandomState(123)
 
 def train_all_for(base_dir):
     with np.errstate(divide='ignore'):
-        train_holdout(base_dir, 'Naive Bayes', GaussianNB(var_smoothing=1e-09))
-        # train_holdout(base_dir, 'Decision Tree', DecisionTreeClassifier(criterion='entropy'))
+        # train_holdout(base_dir, 'Naive Bayes', GaussianNB(var_smoothing=1e-09))
+        train_holdout(base_dir, 'Decision Tree', DecisionTreeClassifier(criterion='entropy'))
         # train_holdout(base_dir, 'Logistic Regression', LogisticRegression())
         # train_holdout(base_dir, 'KNN', KNeighborsClassifier())
         # train_holdout(base_dir, 'Neural Network - adam',

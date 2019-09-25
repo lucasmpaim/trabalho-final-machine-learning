@@ -6,6 +6,7 @@ import pandas as pd
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
 
 GraphicData = collections.namedtuple('GraphicData', 'x error_on_val error_on_train')
 
@@ -115,10 +116,10 @@ def train_holdout(base_dir, classifier_name, classifier):
         normal_fit()
 
     predicated_rows = classifier.predict(X_test)
-    # for predicated, expected in zip(predicated_rows, y_test.iterrows()):
-    #     if expected[1][0] != predicated:
-    #         img_dir = images_dirs[expected[0]]
-    #         print(f'Confundiu {img_dir} com {predicated}')
+    for predicated, expected in zip(predicated_rows, y_test.iterrows()):
+        if expected[1][0] != predicated:
+            img_dir = images_dirs[expected[0]]
+            print(f'Confundiu {img_dir} com {predicated}')
 
     print(f'Acurácia {classifier_name}: {classifier.score(X_test, y_test)}')
 
@@ -129,3 +130,14 @@ def train_holdout(base_dir, classifier_name, classifier):
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
     plt.show()
+
+    if isinstance(classifier, DecisionTreeClassifier):
+        from sklearn.externals.six import StringIO
+        from sklearn.tree import export_graphviz
+        import pydot
+
+        dot_data = StringIO()
+        export_graphviz(classifier, out_file=dot_data, rounded=True,
+                        filled=True)
+        graph = pydot.graph_from_dot_data(dot_data.getvalue())[0]
+        graph.write_pdf(f'{classifier_name}.pdf')

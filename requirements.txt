@@ -10,3 +10,5 @@ deslib
 seaborn
 keras
 tensorflow
+graphviz
+pydot

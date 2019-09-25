@@ -334,7 +334,16 @@ sumario=tradicional,
 	
 	A técnica de
 	
+	\subsection{Resultados do Treinamento}
+	DEEP
+	\begin{verbatim}
+		Acurácia Decision Tree Teste     : 0.8466666666666667
+	\end{verbatim}
 	
+	HAND-CRAFT
+	\begin{verbatim}
+	Acurácia Decision Tree Teste     : 0.67
+	\end{verbatim}
 	% ---
 	% Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
 	% ---
@@ -434,7 +443,7 @@ sumario=tradicional,
 			\legend{Fonte: O Autor}
 		\end{figure}
 	
-			\begin{figure}[htb]
+		\begin{figure}[htb]
 			\caption{\label{error-naive-bayes-hand-craft-holdout}Gráfico de treinamento Naive Bayes, usando Holdout}
 			\begin{center}
 				\includegraphics[scale=0.5]{error-naive-bayes-hand-craft-holdout.png}
@@ -442,10 +451,43 @@ sumario=tradicional,
 			\legend{Fonte: O Autor}
 		\end{figure}
 	
-			\begin{figure}[htb]
-		\caption{\label{confusion-matrix-naive-holdout-hand-craft}Matrix de confusão Naive Bayes, usando Holdout}
+		\begin{figure}[htb]
+			\caption{\label{confusion-matrix-naive-holdout-hand-craft}Matrix de confusão Naive Bayes, usando Holdout}
+			\begin{center}
+				\includegraphics[scale=0.5]{confusion-matrix-naive-holdout-hand-craft.png}
+			\end{center}
+			\legend{Fonte: O Autor}
+		\end{figure}
+	
+		\begin{figure}[htb]
+			\caption{\label{decision-tree-holdout-deep}Decision Tree, usando Holdout e Deep Learning}
+			\begin{center}
+				\includegraphics[scale=0.06]{Decision_Tree_Deep.pdf}
+			\end{center}
+			\legend{Fonte: O Autor}
+		\end{figure}
+	
+	
+	\begin{figure}[htb]
+		\caption{\label{confusion-matrix-decision-tree-holdout-deep}Matrix de confusão Decision Tree, usando Holdout e Deep Learning}
 		\begin{center}
-			\includegraphics[scale=0.5]{confusion-matrix-naive-holdout-hand-craft.png}
+			\includegraphics[scale=0.5]{confusion-matrix-decision-tree-deep.png}
+		\end{center}
+		\legend{Fonte: O Autor}
+	\end{figure}
+	
+	\begin{figure}[htb]
+		\caption{\label{decision-tree-holdout-hand-craft}Árvore de Desição, usando Holdout e Hand Craft}
+		\begin{center}
+			\includegraphics[scale=0.06]{Decision_Tree_Hand_Craft.pdf}
+		\end{center}
+		\legend{Fonte: O Autor}
+	\end{figure}
+	
+	\begin{figure}[htb]
+		\caption{\label{confusion-matrix-decision-tree-holdout-hand-craft}Matrix de confusão Decision Tree, usando Holdout e Hand Craft}
+		\begin{center}
+			\includegraphics[scale=0.5]{confusion-matrix-decision-tree-holdout-hand-craft.png}
 		\end{center}
 		\legend{Fonte: O Autor}
 	\end{figure}
