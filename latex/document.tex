@@ -294,7 +294,7 @@ sumario=tradicional,
 	r = {y_{t-1}} - {y_{t}}
 	\end{equation}
 	
-	Onde \({y_{t-1}} \) se refere ao erro na base de validação na iteração anterior e \({y_t}\) se refere a iteração atual de treinamento. desta forma quando obtemos um valor para \(r < {10^{-3}}\) que é a margem de erro e isso ocorre por \(N\) vezes seguidas. significa que não há um ganho no treinamento e este pode ser interrompido.
+	Onde \({y_{t-1}} \) se refere ao erro na base de validação na iteração anterior e \({y_t}\) se refere a iteração atual de treinamento, desta forma quando obtemos um valor para \(r < {10^{-3}}\) que é a taxa mínima de aprendizagem e isso ocorre por \(N\) vezes seguidas, significa que não há um ganho no treinamento e este pode ser interrompido.
  	
 	\subsection{Naive Bayes}
 	
@@ -528,6 +528,22 @@ sumario=tradicional,
 		\caption{\label{confusion-matrix-decision-tree-holdout-hand-craft}Matrix de confusão Decision Tree, usando Holdout e Hand Craft}
 		\begin{center}
 			\includegraphics[scale=0.5]{confusion-matrix-decision-tree-holdout-hand-craft.png}
+		\end{center}
+		\legend{Fonte: O Autor}
+	\end{figure}
+
+	\begin{figure}[htb]
+		\caption{\label{tsne-deep-data}TSNE Base Deep Learning}
+		\begin{center}
+			\includegraphics[scale=0.3]{tsne-graph-deep.png}
+		\end{center}
+		\legend{Fonte: O Autor}
+	\end{figure}
+
+	\begin{figure}[htb]
+		\caption{\label{tsne-deep-data}TSNE Base Hand Crafting}
+		\begin{center}
+			\includegraphics[scale=0.3]{tsne-graph-hand-craft.png}
 		\end{center}
 		\legend{Fonte: O Autor}
 	\end{figure}
