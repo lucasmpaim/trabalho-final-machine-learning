@@ -15,16 +15,16 @@ rng = np.random.RandomState(123)
 
 def train_all_for(base_dir):
     with np.errstate(divide='ignore'):
-        train_holdout(base_dir, 'Naive Bayes', GaussianNB(var_smoothing=1e-09))
+        # train_holdout(base_dir, 'Naive Bayes', GaussianNB(var_smoothing=1e-09))
         # train_holdout(base_dir, 'Decision Tree', DecisionTreeClassifier(criterion='entropy'))
         # train_holdout(base_dir, 'KNN', KNeighborsClassifier())
-        # train_holdout(base_dir, 'Neural Network - adam',
-        #               MLPClassifier(solver='adam', hidden_layer_sizes=(100,),
-        #                             activation='logistic', batch_size=100,
-        #                             max_iter=1000000,
-        #                             learning_rate_init=0.1,
-        #                             momentum=0.2, tol=1e-10,
-        #                             random_state=rng))
+        train_holdout(base_dir, 'Neural Network - adam',
+                      MLPClassifier(solver='adam', hidden_layer_sizes=(100,),
+                                    activation='logistic', batch_size=100,
+                                    max_iter=1000000,
+                                    learning_rate_init=0.1,
+                                    momentum=0.2, tol=1e-10,
+                                    random_state=rng))
 
         # # parameters for SVM
         # parameters = [
