@@ -109,22 +109,24 @@ def train_holdout(base_dir, classifier_name, classifier):
         classifier.fit(X_train, y_train)
 
     def visualizate_data():
-        X_Embedded_train = TSNE(n_components=2).fit_transform(X_train)
-        X_Embedded = TSNE(n_components=2).fit_transform(X_test)
+        x_tsne = TSNE(n_components=2).fit_transform(X)
+
+        y_aux = pd.DataFrame()
+        y_aux['classes'] = y[0]
+
+        tsne_df = pd.DataFrame()
+        tsne_df['tsne-x'] = x_tsne[:, 0]
+        tsne_df['tsne-y'] = x_tsne[:, 1]
+        tsne_df = pd.concat([tsne_df, y_aux], axis=1)
 
         plt.figure(figsize=(16, 10))
-        sns.scatterplot(data=X_Embedded_train, legend='Training Data', hue="y",
-                        palette=sns.color_palette("hls", 10))
+        sns.scatterplot('tsne-x', 'tsne-y',
+                        hue="classes",
+                        legend='full',
+                        palette=sns.color_palette("hls", 10),
+                        alpha=0.3,
+                        data=tsne_df)
         plt.show()
-
-        all_classes = np.unique(y.to_numpy())
-        for i, c, pallete in zip(all_classes.shape[1], all_classes, sns.color_palette("hls", all_classes.shape[1])):
-            plt.figure(figsize=(16, 10))
-            sns.scatterplot(X_Embedded[y_test == c, 0], X_Embedded[y_test == c, 1],
-                            data=X_Embedded, legend='Test Data',
-                            hue="y",
-                            palette=pallete)
-            plt.show()
 
     if hasattr(classifier, 'partial_fit'):
         overfitting_prevent_train(X_train, y_train)
@@ -147,7 +149,7 @@ def train_holdout(base_dir, classifier_name, classifier):
     plt.xlabel('Predicted label')
     plt.show()
 
-    # visualizate_data()
+    visualizate_data()
     plt.show()
 
     if isinstance(classifier, DecisionTreeClassifier):

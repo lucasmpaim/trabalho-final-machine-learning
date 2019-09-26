@@ -294,7 +294,7 @@ sumario=tradicional,
 	r = {y_{t-1}} - {y_{t}}
 	\end{equation}
 	
-	Onde \({y_{t-1}} \) se refere ao erro na base de validação na iteração anterior e \({y_t}\) se refere a iteração atual de treinamento. desta forma quando obtemos um valor para \(r < {1^{-3}}\) que é a margem de erro e isso ocorre por \(N\) vezes seguidas. significa que não há um ganho no treinamento e este pode ser interrompido.
+	Onde \({y_{t-1}} \) se refere ao erro na base de validação na iteração anterior e \({y_t}\) se refere a iteração atual de treinamento. desta forma quando obtemos um valor para \(r < {10^{-3}}\) que é a margem de erro e isso ocorre por \(N\) vezes seguidas. significa que não há um ganho no treinamento e este pode ser interrompido.
  	
 	\subsection{Naive Bayes}
 	
@@ -318,9 +318,19 @@ sumario=tradicional,
 		Acurácia Naive Bayes Teste     : 0.8533333333333334
 	\end{verbatim}
 	
-	\subsection{Árvores de decição}
+	\subsection{Árvores de decisão}
 	
-	A técnica de
+	A técnica da árvore de decisão utiliza a teoria do ganho de informação (entropia) , para decidir seus novos vértices até que consiga realizar a classificação das instâncias.
+	
+	A entropia pode ser definida pela fórmula:
+	
+	\begin{equation}
+	S = -p_+ log_2 p_+-p_-log_2p_-
+	\end{equation}
+	
+	Onde \(p_+\) é a proporção de elementos positivos em \(S\) e \(p_-\) a de elementos negativos.
+	
+	 As árvores geradas para a este trabalho podem ser consultadas em: \autoref{decision-tree-holdout-deep}, \autoref{decision-tree-holdout-hand-craft}
 	
 	\subsubsection{Resultados do Treinamento}
 	DEEP
@@ -350,7 +360,11 @@ sumario=tradicional,
 	
 	\subsection{KNN}
 	
-	\subsubsection{Resultados do Treinamento}
+	A técnica de k-nearest neighbors, k-vizinhos mais próximos, consiste em agrupar intâncias similares, e quando novas intâncias são inseridas para a classificação, elas são classificados pelos \(k\)-vizinhos mais próximos.
+	
+	Uma grande desvantagem desta abordagem que dispensa treinamento é que ela é mais lenta, uma vez que realiza todos os cálculos necessários a cada nova classificação
+	
+	\subsubsection{Resultados}
 	
 	DEEP	
 	\begin{verbatim}
@@ -360,6 +374,21 @@ sumario=tradicional,
 	HAND-CRAFT
 	\begin{verbatim}
 	Acurácia KNN Teste : 0.39666666666666667
+	\end{verbatim}
+	
+	
+	\subsection{SVM}
+	A técnica de SVM consiste em "encontrar" novas dimensões para classificar os atríbutos
+	\subsubsection{Resultado do Treinamento}
+		
+	DEEP	
+	\begin{verbatim}
+	Acurácia SVM Teste : 0.9833333333333333
+	\end{verbatim}
+	
+	HAND-CRAFT
+	\begin{verbatim}
+	Acurácia SVM Teste : 0.7533333333333333
 	\end{verbatim}
 	
 	% ---
