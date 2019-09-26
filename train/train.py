@@ -36,7 +36,7 @@ def train_holdout(base_dir, classifier_name, classifier):
 
     def overfitting_prevent_train(X_train, y_train):
         # separate the train base in 70% to train and 30% do validation
-        X_train, X_validation, y_train, y_validation = train_test_split(X_train, y_train, test_size=.3,
+        X_train, X_validation, y_train, y_validation = train_test_split(X_train, y_train, test_size=.2,
                                                                         random_state=42, stratify=y_train)
 
         chunk_size = 10
@@ -47,12 +47,15 @@ def train_holdout(base_dir, classifier_name, classifier):
         alpha = 0.8
         smooth_error_training = []
         smooth_error_validation = []
+
+        teste = []
+
         overfitting_count = 0
 
         for chunk in chunk_generator(pd.concat([X_train, y_train], axis=1), chunk_size=chunk_size):
             classifier.partial_fit(chunk[0], np.ravel(chunk[1]), classes=all_classes)
 
-            current_error_on_training = 1 - classifier.score(X_test, np.ravel(y_test))
+            current_error_on_training = 1 - classifier.score(X_train, np.ravel(y_train))
             current_error_on_validation = 1 - classifier.score(X_validation, np.ravel(y_validation))
 
             graphic_data.append(
@@ -72,20 +75,14 @@ def train_holdout(base_dir, classifier_name, classifier):
                     alpha * smooth_error_validation[current_epoch - 1] + (1 - alpha) * graphic_data[
                         current_epoch - 1].error_on_val)
 
-            if current_epoch > 8:
-                x1 = [data.x for data in graphic_data[-4:]]
-                x2 = [data.x for data in graphic_data[-8:-4]]
-
-                now = abs(np.trapz(smooth_error_training[-4:], x1) - np.trapz(smooth_error_validation[-4:], x1))
-                before = abs(np.trapz(smooth_error_training[-8:-4], x2) - np.trapz(smooth_error_validation[-8:-4], x2))
-
-                if now > before and abs(now - before) > 0.01:
+            if current_epoch >= 1:
+                if smooth_error_validation[-2] - smooth_error_validation[-1] < 1e-03:
                     overfitting_count += 1
                     if overfitting_count >= 5:
                         print(f'Overfitting Detected on {classifier_name}, epoch: {current_epoch}')
                         break
-                else:
-                    overfitting_count = 0
+                    else:
+                        overfitting_count = 0
 
             current_epoch += 1
 
@@ -135,12 +132,12 @@ def train_holdout(base_dir, classifier_name, classifier):
         normal_fit()
 
     predicated_rows = classifier.predict(X_test)
-    for predicated, expected in zip(predicated_rows, y_test.iterrows()):
-        if expected[1][0] != predicated:
-            img_dir = images_dirs[expected[0]]
-            print(f'Confundiu {img_dir} com {predicated}')
+    # for predicated, expected in zip(predicated_rows, y_test.iterrows()):
+    #     if expected[1][0] != predicated:
+    #         img_dir = images_dirs[expected[0]]
+    #         print(f'Confundiu {img_dir} com {predicated}')
 
-    print(f'Acurácia {classifier_name}: {classifier.score(X_test, y_test)}')
+    print(f'Acurácia {classifier_name} Teste : {classifier.score(X_test, y_test)}')
 
     cm = confusion_matrix(y_test, predicated_rows)
     df_cm = pd.DataFrame(cm, index=all_classes, columns=all_classes)
@@ -150,7 +147,7 @@ def train_holdout(base_dir, classifier_name, classifier):
     plt.xlabel('Predicted label')
     plt.show()
 
-    visualizate_data()
+    # visualizate_data()
     plt.show()
 
     if isinstance(classifier, DecisionTreeClassifier):

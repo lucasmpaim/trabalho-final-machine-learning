@@ -288,23 +288,13 @@ sumario=tradicional,
 	
 	O resultado da aplicação desta técnica pode ser consultada na  \autoref{fig_smooth_example}, onde é possível observar que o gráfico foi suavizado, de forma que, quando ambas as bases forem confrontadas será possível detectar mais fácilmente onde está ocorrendo o overfitting.
 	
-	Para a detecção de overffiting foi utilizada a seguinte fórmula:
+	Sendo assim podemos definir a taxa de aprendizado como sendo:
 	
 	\begin{equation}
-	r = |\int  y_t' dx - \int y_t''dx|
+	r = {y_{t-1}} - {y_{t}}
 	\end{equation}
 	
-	Onde \( y_t'  \)' se refere a integral parcial dos últimos elementos para os últimos indicadores de erro da base treinamento, e \( y_t'' \) se refere ao subconjunto equivalente existente para os indicadores de erro da base de validação.
-	
-	Sendo assim podemos definir a integral entre as duas curvas de aprendizado como sendo:
-	
-	\begin{equation}
-	d = |r' - r''|
-	\end{equation}
-	
-	Onde \(r'\) se refere a diferença entre as integrais considerando os últimos elementos conhecidos dos indicadores de erro da base treimaneto e validação e \(r''\) a mesma coisa, porém para o subconjunto anterior ao utilizado por \(r'\), desta forma quando há um valor para \(d > 0.01\) que é uma margen aceitável para erro e \( r'' > r' \) por algumas vezes seguidas. significa que as duas curvas estão se distanciando, sendo assim o treinamento pode ser interrompido devido a overffiting.
-	
-	A diferença da aplicação deste método pode ser comparado entre a  \autoref{with_overfitting} e \autoref{without_overfitting}.
+	Onde \({y_{t-1}} \) se refere ao erro na base de validação na iteração anterior e \({y_t}\) se refere a iteração atual de treinamento. desta forma quando obtemos um valor para \(r < {1^{-3}}\) que é a margem de erro e isso ocorre por \(N\) vezes seguidas. significa que não há um ganho no treinamento e este pode ser interrompido.
  	
 	\subsection{Naive Bayes}
 	
@@ -314,20 +304,18 @@ sumario=tradicional,
 	
 	\subsubsection{Resultados do Treinamento}
 	
-	A matriz de confusão para o esta técnica usando houldout e a base de características usando deeplearning pode ser consultada em \autoref{confusion-matrix-naive-holdout-deep}, assim como sua taxa de aprendizagem \autoref{with_overfitting}
+	A matriz de confusão para o esta técnica usando houldout e a base de características usando deeplearning pode ser consultada em \autoref{confusion-matrix-naive-holdout-deep}, assim como sua taxa de aprendizagem \autoref{error-naive-bayes-holdout}
 	
 	\begin{verbatim}
-		Overfitting Detected on Naive Bayes, epoch: 38
-		Acurácia Naive Bayes Validação : 0.8761904761904762
-		Acurácia Naive Bayes Teste     : 0.9133333333333333
+		Acurácia Naive Bayes Validação : 0.8928571428571429
+		Acurácia Naive Bayes Teste     : 0.9266666666666666
 	\end{verbatim}
 	
 	Para o método usando as características extraídas de forma hand crafting, a curva de erro na aprendizagem pode ser consultado na \autoref{error-naive-bayes-hand-craft-holdout}, assim como sua matriz de confução na \autoref{confusion-matrix-naive-holdout-hand-craft}.
 	
 	\begin{verbatim}
-		Overfitting Detected on Naive Bayes, epoch: 14
-		Acurácia Naive Bayes Validação : 0.6761904761904762
-		Acurácia Naive Bayes Teste     : 0.7466666666666667
+		Acurácia Naive Bayes Validação : 0.7785714285714286
+		Acurácia Naive Bayes Teste     : 0.8533333333333334
 	\end{verbatim}
 	
 	\subsection{Árvores de decição}
@@ -393,7 +381,8 @@ sumario=tradicional,
 		
 		% ----------------------------------------------------------
 		\chapter{Nullam elementum urna vel imperdiet sodales elit ipsum pharetra ligula
-			ac pretium ante justo a nulla curabitur tristique arcu eu metus}
+			ac pretium ante justo
+		 a nulla curabitur tristique arcu eu metus}
 		% ----------------------------------------------------------
 		\lipsum[55-56]
 		
@@ -419,21 +408,13 @@ sumario=tradicional,
 		\end{figure}
 		
 		\begin{figure}[htb]
-			\caption{\label{with_overfitting}Gráfico de treinamento sem detectar Overfitting, usando Holdout}
+			\caption{\label{error-naive-bayes-holdout}Gráfico de Margem de erro usando Holdout}
 			\begin{center}
-				\includegraphics[scale=0.5]{with_overfitting.png}
+				\includegraphics[scale=0.5]{error-naive-bayes-holdout.png}
 			\end{center}
 			\legend{Fonte: O Autor}
 		\end{figure}
-		
-		
-		\begin{figure}[htb]
-			\caption{\label{without_overfitting}Gráfico de treinamento com a detecção de  Overfitting, usando Holdout}
-			\begin{center}
-				\includegraphics[scale=0.5]{without_overfitting.png}
-			\end{center}
-			\legend{Fonte: O Autor}
-		\end{figure}
+
 	
 		\begin{figure}[htb]
 			\caption{\label{confusion-matrix-naive-holdout-deep}Matrix de confusão Naive Bayes, usando Holdout}
