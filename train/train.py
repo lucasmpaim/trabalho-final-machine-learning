@@ -134,10 +134,16 @@ def train_holdout(base_dir, classifier_name, classifier):
         normal_fit()
 
     predicated_rows = classifier.predict(X_test)
-    # for predicated, expected in zip(predicated_rows, y_test.iterrows()):
-    #     if expected[1][0] != predicated:
-    #         img_dir = images_dirs[expected[0]]
-    #         print(f'Confundiu {img_dir} com {predicated}')
+    predicated_proba = classifier.predict_proba(X_test)
+
+    # aux for find proba for class
+    aux = 0
+    for predicated, expected in zip(predicated_rows, y_test.iterrows()):
+        if expected[1][0] != predicated:
+            img_dir = images_dirs[expected[0]]
+            percent = predicated_proba[aux][np.where(all_classes == predicated)]
+            print(f'Confundiu {img_dir} com {predicated}, proba: {percent}')
+        aux += 1
 
     print(f'Acurácia {classifier_name} Teste : {classifier.score(X_test, y_test)}')
 
@@ -149,8 +155,7 @@ def train_holdout(base_dir, classifier_name, classifier):
     plt.xlabel('Predicted label')
     plt.show()
 
-    visualizate_data()
-    plt.show()
+    # visualizate_data()
 
     if isinstance(classifier, DecisionTreeClassifier):
         from sklearn.externals.six import StringIO
@@ -162,3 +167,5 @@ def train_holdout(base_dir, classifier_name, classifier):
                         filled=True)
         graph = pydot.graph_from_dot_data(dot_data.getvalue())[0]
         graph.write_pdf(f'{classifier_name}.pdf')
+
+    return classifier, X_test, y_test

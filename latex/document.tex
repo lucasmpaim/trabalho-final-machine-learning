@@ -268,8 +268,6 @@ sumario=tradicional,
 	
 	Todos os indutores, foram treinados utilizando a mesma base de imagens, em um primeiro momento ela é separada em 70\%  em treinamento e 30\% em testes, técnica esta chamada de holdout (percentage-split), após esta separação ainda foi separado mais 30\% da base de treinamento e criada uma base de validação, para evitar assim o chamado overfitting, que segundo \citeonline{overfitting}, é um dos maiores problemas da aprendizagem de máquina, isto indica que o indutor está perdendo sua capacidade de generalização, isto é, segundo \citeonline{isIA} a capacidade do indutor responder adequadamente a dados que não fazem parte do conjunto de treinamento.
 	
-	Para a comparação dos indutores será avaliado, com base em holdout e também em validação cruzada que segundo, \citeonline{basic-concepts}, consiste em dividir a base de dados em N grupos, em que um desses grupos é selecionado para teste e isto é repetido N vezes, garantindo assim que todas as instâncias serão utilizadas como teste ao menos uma vez.
-	
 	Devido ao não suporte dos métodos de overfitting para alguns indicadores, este trabalho utiliza, quando disponível, o método:
 	
 	\begin{verbatim}
@@ -295,6 +293,8 @@ sumario=tradicional,
 	\end{equation}
 	
 	Onde \({y_{t-1}} \) se refere ao erro na base de validação na iteração anterior e \({y_t}\) se refere a iteração atual de treinamento, desta forma quando obtemos um valor para \(r < {10^{-3}}\) que é a taxa mínima de aprendizagem e isso ocorre por \(N\) vezes seguidas, significa que não há um ganho no treinamento e este pode ser interrompido.
+	
+	
  	
 	\subsection{Naive Bayes}
 	
@@ -400,15 +400,15 @@ sumario=tradicional,
 	% ---
 	% Conclusão
 	% ---
+	\section{Resultados}
+	
+	Os indutores tiveram resultados mais consistentes utilizando a base com características extraídas via deep-learning, que por mais que tenha menos características que a base que utilizou hand-crafting, estas características representam melhor o problema.
+	
+	Utilizando a técnica t-SNE, que segundo \citeonline{t-SNE}, é uma técnica de redução de dimensionalidade estocástica, ou seja, utilizando está técnica é possível reduzir um vetor de tamanho \(N\) para um de tamanho \(X\), foi realizada a redução das bases de características e apresentadas gráficamente, para assim analisar o quão bem distribuídos estão as classes, estes gráficos podem ser conferinos na \autoref{tsne-deep-data} e \autoref{tsne-hand-crafting-data}
+	
+	É possível notar que os pontos na \autoref{tsne-hand-crafting-data} estão extremamente misturados, o que dificulta a classificação, com isso seria necessário um trabalho de limpeza de características ou a extração de novas características que representem melhor o problema.
+	
 	\section{Considerações finais}
-	
-	\lipsum[1]
-	
-	\begin{citacao}
-		\lipsum[2]
-	\end{citacao}
-	
-	\lipsum[3]
 	
 	% ----------------------------------------------------------
 	% ELEMENTOS PÓS-TEXTUAIS
@@ -541,7 +541,7 @@ sumario=tradicional,
 	\end{figure}
 
 	\begin{figure}[htb]
-		\caption{\label{tsne-deep-data}TSNE Base Hand Crafting}
+		\caption{\label{tsne-hand-crafting-data}TSNE Base Hand Crafting}
 		\begin{center}
 			\includegraphics[scale=0.3]{tsne-graph-hand-craft.png}
 		\end{center}
