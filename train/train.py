@@ -47,9 +47,6 @@ def train_holdout(base_dir, classifier_name, classifier):
         alpha = 0.8
         smooth_error_training = []
         smooth_error_validation = []
-
-        teste = []
-
         overfitting_count = 0
 
         for chunk in chunk_generator(pd.concat([X_train, y_train], axis=1), chunk_size=chunk_size):
