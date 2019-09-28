@@ -189,18 +189,18 @@ sumario=tradicional,
 	
 	% resumo em português
 	\begin{resumoumacoluna}
-		Este trabalho tem por objetivo comparar os indutores apresentados durante a disciplina de Machine Learning do programa de especialização em Inteligência Artificial Aplicada da Pontifícia Universidade Católica do Paraná, para predição de classificação de imagens, utilizando principalmente a bilioteca scikit-learn e a linguagem Python, assim como a demonstração de técnicas de combinação de indicadores e seleção dinâmica.
+		Este trabalho tem por objetivo comparar os indutores apresentados durante a disciplina de Machine Learning do programa de especialização em Inteligência Artificial Aplicada da Pontifícia Universidade Católica do Paraná, para predição de classificação de imagens, utilizando principalmente a bilioteca scikit-learn e a linguagem Python.
 
 		Tem por objetivo também a comparação dos resultados utilizando técnicas de extração de características manuais, handcrafted, e CNN deep-learning.
 
 		Para a extração de características de imagens foram utilizados as bibliotecas: opencv-python, skimage e keras
 
-		//Falta a conclusão
+		A base de características extraídas via Deep Learning alcançou margens melhores com todos os indutores, que dentre eles se destacou o SVM, que detectou erro de classificação na base de dados, ou seja, detectou o erro humano e classificou a imagem corretamente.
 		
 		\vspace{\onelineskip}
 		
 		\noindent
-		\textbf{Palavras-chave}: Naive Bayes. Árvores de decisão. Redes Neurais. k-Vizinhos Mais Próximos. Máquina de Vetores de Suporte.
+		\textbf{Palavras-chave}: Naive Bayes. Árvores de decisão. Redes Neurais. k-Vizinhos Mais Próximos. Máquina de Vetores de Suporte. SVM.
 	\end{resumoumacoluna}
 	
 	
@@ -208,15 +208,18 @@ sumario=tradicional,
 	\renewcommand{\resumoname}{Abstract}
 	\begin{resumoumacoluna}
 		\begin{otherlanguage*}{english}
-			This paper aims to compare the inductors presented during the Machine Learning discipline of the Pontifical Catholic University of Paraná specialization program in Applied Artificial Intelligence, to predict image classification using mainly the scikit-learn library and the Python language as well as the demonstration of techniques of combination of indicators and dynamic inductor selection.
+			This paper aims to compare the inductors presented during the Machine Learning discipline of the Pontifical Catholic University of Paraná specialization program in Applied Artificial Intelligence, to predict image classification using mainly the scikit-learn library and the Python language.
 			
 			It also aims to compare the results using handcrafted and CNN deep-learning feature extraction techniques.
 			
 			For the extraction of image characteristics we used the libraries: opencv-python, skimage and keras.
+			
+			The base of features extracted via Deep Learning achieved better margins with all inductors, among which stood out SVM, which detected misclassification in the database, that is, detected human error and classified the image correctly.
+			
 			\vspace{\onelineskip}
 			
 			\noindent
-			\textbf{Keywords}: Naive Bayes. Decision Tree. Neural Network. k-Nearest Neighbors. Support Vector Machine.
+			\textbf{Keywords}: Naive Bayes. Decision Tree. Neural Network. k-Nearest Neighbors. Support Vector Machine. SVM.
 		\end{otherlanguage*}  
 	\end{resumoumacoluna}
 	
@@ -245,7 +248,7 @@ sumario=tradicional,
 	
 	Os mesmos indutores também podem ser utilizados para outras finalidades que não sejam classificação de imagem, como: detecção de emoções em processamento de textos \citeonline{emocoes-em-texto}, regressão linear etc.
 	
-	Segundo \citeonline{benIA}, fornecer a capacidade de visão a sistemas computacionais, assim como a robôs, agentes é algo, sem dúvida, extremamente desejável.
+	Segundo \citeonline{benIA}, fornecer a capacidade de visão a sistemas computacionais, assim como a robôs e agentes computacionais é algo, sem dúvida, extremamente desejável.
 	
 	As técnicas de extração de caracterísicas de imagens handcrafted que foram utilizadas são: 
 	
@@ -255,10 +258,7 @@ sumario=tradicional,
 		\item Histograma de Cores RGB.
 	\end{itemize}
 	
-	
-	% Visto o exposto o estudo desse trabalho se torna importante para ...., Podendo ser aplicado em diversas áreas, tendo por objetivo ...
-	
-	Visto o exposto o estudo desse trabalho se torna importante para a área de classifição de imagens, Podendo ser aplicado em diversas áreas, tendo por objetivo criar modelos de predição para classifição de imagens comparando vários indutores e os combinando para gerar maiores assertividades.
+	Visto o exposto o estudo desse trabalho se torna importante para a área de classifição de imagens, podendo ser aplicado em diversas áreas, tendo por objetivo criar modelos de predição para classifição de imagens comparando vários indutores e analisando seus resultados.
 	
 	
 	\section{Método}
@@ -346,6 +346,9 @@ sumario=tradicional,
 	\subsection{Redes Neurais}
 	
 	\subsubsection{Resultados do Treinamento}
+	
+	As matrizes de confução desta técnica podem ser consultadas em: \autoref{confusion-matrix-neural-network-hodoult-deep} e \autoref{confusion-matrix-neural-network-hodoult-hand-craft}, assim como suas curvas de aprendizado podem ser consultadas em \autoref{error-neural-network-holdout-deep} e \autoref{error-neural-network-holdout-hand-craft}
+	
 	DEEP
 	\begin{verbatim}
 	Acurácia Neural Network - adam Validação : 0.9357142857142857
@@ -366,6 +369,8 @@ sumario=tradicional,
 	
 	\subsubsection{Resultados}
 	
+	As matrizes de confusão podem ser consultadas na \autoref{confusion-matrix-knn-hodoult-deep} e \autoref{confusion-matrix-knn-hodoult-hand-craft}
+	
 	DEEP	
 	\begin{verbatim}
 	Acurácia KNN Teste : 0.96
@@ -380,6 +385,8 @@ sumario=tradicional,
 	\subsection{SVM}
 	A técnica de SVM consiste em "encontrar" novas dimensões para classificar os atríbutos
 	\subsubsection{Resultado do Treinamento}
+		
+	As matrizes de confusão podem ser consultadas na \autoref{confusion-matrix-svm-holdout-deep} \autoref{confusion-matrix-svm-holdout-hand-craft}
 		
 	DEEP	
 	\begin{verbatim}
@@ -408,7 +415,23 @@ sumario=tradicional,
 	
 	É possível notar que os pontos na \autoref{tsne-hand-crafting-data} estão extremamente misturados, o que dificulta a classificação, com isso seria necessário um trabalho de limpeza de características ou a extração de novas características que representem melhor o problema.
 	
+	A técnica de SVM usando a base de Deep Learning, trouxe os melhores resultados para esta base de treinamento, sua margem de acerto foi de 98\% e foram poucos as imagens que foram classificadas erradas, como é possível ver em sua respectiva matriz de confusão na \autoref{confusion-matrix-svm-holdout-deep} e \autoref{confusion-matrix-svm-holdout-hand-craft}, podemos notar também que, as imagens em que este método errou, é com uma pequena taxa de confiança:
+	
+	\begin{verbatim}
+	Confundiu "base/humanos/72.jpg" com comida, proba: [0.31407948]
+	Confundiu "base/humanos/79.jpg" com praia, proba: [0.49498053]
+	Confundiu "base/obras/225.jpg" com montanhas, proba: [0.40270914]
+	Confundiu "base/humanos/73.jpg" com praia, proba: [0.45795092]
+	Confundiu "base/humanos/90.jpg" com praia, proba: [0.49488543]
+	\end{verbatim} 
+	
+	Estas imagens, se deram devido a classificação humana da base ter sido feita erroneamente, pois a imagem "humanos/72.png" não há humanos na foto e sim algo muito parecido com comida, na "humanos/79.png" é uma foto de um lago, também sem nenhum humano presente, na imagem "obras/225.jpg" também existem montanhas na foto, e as fotos "humanos/73.jpg" e "humanos/90.jpg" são fotos de praias e não de humanos.
+	
 	\section{Considerações finais}
+	
+	Em geral os indutores tiveram melhor utilizando a base de caracteríscas usando Deep Learning.
+	
+	O indutor que houve melhor desempenho nesta base é o SVM e que nas poucas imagens em que ele errou da base teste a classificação das imagens estavam classificadas erroneamente na própria base, sendo assim, a técnica encontrou erros de classificação na base e a efetuou a classificação corretamente. 
 	
 	% ----------------------------------------------------------
 	% ELEMENTOS PÓS-TEXTUAIS
@@ -436,16 +459,16 @@ sumario=tradicional,
 	% ---
 	% Inicia os apêndices
 	% ---
-	\begin{apendicesenv}
+	%\begin{apendicesenv}
 		
 		% ----------------------------------------------------------
-		\chapter{Nullam elementum urna vel imperdiet sodales elit ipsum pharetra ligula
-			ac pretium ante justo
-		 a nulla curabitur tristique arcu eu metus}
+	%	\chapter{Nullam elementum urna vel imperdiet sodales elit ipsum pharetra ligula
+	%		ac pretium ante justo
+	%	 a nulla curabitur tristique arcu eu metus}
 		% ----------------------------------------------------------
-		\lipsum[55-56]
+	%	\lipsum[55-56]
 		
-	\end{apendicesenv}
+%	\end{apendicesenv}
 	% ---
 	
 	% ----------------------------------------------------------
@@ -533,6 +556,72 @@ sumario=tradicional,
 	\end{figure}
 
 	\begin{figure}[htb]
+	\caption{\label{confusion-matrix-svm-holdout-deep}Matrix de confusão SVM, usando Holdout e Deep Learning}
+	\begin{center}
+		\includegraphics[scale=0.5]{confusion-matrix-svm-hodoult-deep.png}
+	\end{center}
+	\legend{Fonte: O Autor}
+\end{figure}
+
+	\begin{figure}[htb]
+	\caption{\label{confusion-matrix-svm-holdout-hand-craft}Matrix de confusão SVM, usando Holdout e Hand Craft}
+	\begin{center}
+		\includegraphics[scale=0.5]{confusion-matrix-svm-hodoult-hand-craft.png}
+	\end{center}
+	\legend{Fonte: O Autor}
+\end{figure}
+
+\begin{figure}[htb]
+	\caption{\label{confusion-matrix-neural-network-hodoult-deep}Matrix de confusão Redes Neurais, usando Holdout e Deep Learning}
+	\begin{center}
+		\includegraphics[scale=0.5]{confusion-matrix-neural-network-hodoult-deep.png}
+	\end{center}
+	\legend{Fonte: O Autor}
+\end{figure}
+
+\begin{figure}[htb]
+	\caption{\label{confusion-matrix-neural-network-hodoult-hand-craft}Matrix de confusão Redes Neurais, usando Holdout e Hand Craft}
+	\begin{center}
+		\includegraphics[scale=0.5]{confusion-matrix-neural-network-hodoult-hand-craft.png}
+	\end{center}
+	\legend{Fonte: O Autor}
+\end{figure}
+
+\begin{figure}[htb]
+	\caption{\label{error-neural-network-holdout-deep}Gráfico da Margem de Erro utilizando Holdout e Deep Learning}
+	\begin{center}
+		\includegraphics[scale=0.5]{error-neural-network-holdout-deep.png}
+	\end{center}
+	\legend{Fonte: O Autor}
+\end{figure}
+
+
+\begin{figure}[htb]
+	\caption{\label{confusion-matrix-knn-hodoult-deep}Matrix de confusão KNN, usando Holdout e Deep Learning}
+	\begin{center}
+		\includegraphics[scale=0.5]{confusion-matrix-knn-deep.png}
+	\end{center}
+	\legend{Fonte: O Autor}
+\end{figure}
+
+\begin{figure}[htb]
+	\caption{\label{confusion-matrix-knn-hodoult-hand-craft}Matrix de confusão KNN, usando Holdout e Hand Craft}
+	\begin{center}
+		\includegraphics[scale=0.5]{confusion-matrix-knn-holdout-hand-craft.png}
+	\end{center}
+	\legend{Fonte: O Autor}
+\end{figure}
+
+
+\begin{figure}[htb]
+	\caption{\label{error-neural-network-holdout-hand-craft}Gráfico da Margem de Erro utilizando Holdout e Hand Craft}
+	\begin{center}
+		\includegraphics[scale=0.5]{error-neural-network-hodoult-hand-craft.png}
+	\end{center}
+	\legend{Fonte: O Autor}
+\end{figure}
+
+	\begin{figure}[htb]
 		\caption{\label{tsne-deep-data}TSNE Base Deep Learning}
 		\begin{center}
 			\includegraphics[scale=0.3]{tsne-graph-deep.png}
@@ -554,8 +643,8 @@ sumario=tradicional,
 	% Agradecimentos
 	% ----------------------------------------------------------
 	
-	\section*{Agradecimentos}
-	Texto sucinto aprovado pelo periódico em que será publicado. Último 
-	elemento pós-textual.
+	%\section*{Agradecimentos}
+	%Texto sucinto aprovado pelo periódico em que será publicado. Último 
+	%elemento pós-textual.
 	
 \end{document}
