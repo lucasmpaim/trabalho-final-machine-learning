@@ -244,7 +244,7 @@ sumario=tradicional,
 	% ----------------------------------------------------------
 	\section{Introdução}
 	
-	A utilização de classificadores de imagens é utilizada nas mais diversas áreas do conhecimento,  que vão desde o auxílio de diagnóstico de câncer de pele  \citeonline{svm-cancer}, sistemas de segmentação e classificação de imagens via satélite \citeonline{seg-imagens-satelite}, OCR's (Optical Character Recognition) para reconhecimento de textos e dígitos \citeonline{ocr-digitos} etc.
+	Os classificadores de imagens são utilizados nas mais diversas áreas do conhecimento,  que vão desde o auxílio de diagnóstico de câncer de pele  \citeonline{svm-cancer}, sistemas de segmentação e classificação de imagens via satélite \citeonline{seg-imagens-satelite}, OCR's (Optical Character Recognition) para reconhecimento de textos e dígitos \citeonline{ocr-digitos} etc.
 	
 	Os mesmos indutores também podem ser utilizados para outras finalidades que não sejam classificação de imagem, como: detecção de emoções em processamento de textos \citeonline{emocoes-em-texto}, regressão linear etc.
 	
@@ -266,7 +266,9 @@ sumario=tradicional,
 	
 	A base utilizada para este trabalho, conta com apenas mil imagens, separadas em dez classes com cem imagens cada, sendo assim, é uma base completamente balanceada.
 	
-	Todos os indutores, foram treinados utilizando a mesma base de imagens, em um primeiro momento ela é separada em 70\%  em treinamento e 30\% em testes, técnica esta chamada de holdout (percentage-split), após esta separação ainda foi separado mais 30\% da base de treinamento e criada uma base de validação, para evitar assim o chamado overfitting, que segundo \citeonline{overfitting}, é um dos maiores problemas da aprendizagem de máquina, isto indica que o indutor está perdendo sua capacidade de generalização, isto é, segundo \citeonline{isIA} a capacidade do indutor responder adequadamente a dados que não fazem parte do conjunto de treinamento.
+	Todos os indutores, foram treinados utilizando a mesma base de imagens.
+	
+	Em um primeiro momento a base é separada em 70\%  em treinamento e 30\% em testes, técnica esta chamada de holdout (percentage-split), após esta separação ainda foi separado mais 30\% da base de treinamento e criada uma base de validação, para evitar assim o chamado overfitting, que segundo \citeonline{overfitting}, é um dos maiores problemas da aprendizagem de máquina, isto indica que o indutor está perdendo sua capacidade de generalização, isto é, segundo \citeonline{isIA} a capacidade do indutor responder adequadamente a dados que não fazem parte do conjunto de treinamento.
 	
 	Devido ao não suporte dos métodos de overfitting para alguns indicadores, este trabalho utiliza, quando disponível, o método:
 	
@@ -281,7 +283,7 @@ sumario=tradicional,
 	Sua fórmula consiste em:
 	
 	\begin{equation}
-	y_t = \sum_{i=0}^M b_jx_(t-i) - \sum_{j=1}^{L} \alpha_j y_(t-j)
+	y_t = \sum_{i=0}^M {b_jx_{t-i}} - \sum_{j=1}^{L} \alpha_j {y_{t-j}}
 	\end{equation}
 	
 	O resultado da aplicação desta técnica pode ser consultada na  \autoref{fig_smooth_example}, onde é possível observar que o gráfico foi suavizado, de forma que, quando ambas as bases forem confrontadas será possível detectar mais fácilmente onde está ocorrendo o overfitting.
@@ -411,11 +413,13 @@ sumario=tradicional,
 	
 	Os indutores tiveram resultados mais consistentes utilizando a base com características extraídas via deep-learning, que por mais que tenha menos características que a base que utilizou hand-crafting, estas características representam melhor o problema.
 	
-	Utilizando a técnica t-SNE, que segundo \citeonline{t-SNE}, é uma técnica de redução de dimensionalidade estocástica, ou seja, utilizando está técnica é possível reduzir um vetor de tamanho \(N\) para um de tamanho \(X\), foi realizada a redução das bases de características e apresentadas gráficamente, para assim analisar o quão bem distribuídos estão as classes, estes gráficos podem ser conferinos na \autoref{tsne-deep-data} e \autoref{tsne-hand-crafting-data}
+	Utilizando a técnica t-SNE, que segundo \citeonline{t-SNE}, é uma técnica de redução de dimensionalidade estocástica, ou seja, utilizando está técnica é possível reduzir um vetor de tamanho \(N\) para um de tamanho \(X\), onde \(X < N\).
 	
-	É possível notar que os pontos na \autoref{tsne-hand-crafting-data} estão extremamente misturados, o que dificulta a classificação, com isso seria necessário um trabalho de limpeza de características ou a extração de novas características que representem melhor o problema.
+	Utilizando-se desta técnica foi realizada a redução das bases de características e apresentadas gráficamente, para assim analisar o quão bem distribuídos estão as classes, estes gráficos podem ser conferinos na \autoref{tsne-deep-data} e \autoref{tsne-hand-crafting-data}
 	
-	A técnica de SVM usando a base de Deep Learning, trouxe os melhores resultados para esta base de treinamento, sua margem de acerto foi de 98\% e foram poucos as imagens que foram classificadas erradas, como é possível ver em sua respectiva matriz de confusão na \autoref{confusion-matrix-svm-holdout-deep} e \autoref{confusion-matrix-svm-holdout-hand-craft}, podemos notar também que, as imagens em que este método errou, é com uma pequena taxa de confiança:
+	É possível notar que os pontos na \autoref{tsne-hand-crafting-data} que representam os dados da base de Hand Craft, estão extremamente misturados, o que dificulta a classificação, com isso seria necessário um trabalho de limpeza de características ou a extração de novas características que representem melhor o problema.
+	
+	A técnica de SVM usando a base de Deep Learning, trouxe os melhores resultados para esta base de treinamento, sua margem de acerto foi de 98\% e foram poucos as imagens que foram classificadas erradas, como é possível ver em sua respectiva matriz de confusão na \autoref{confusion-matrix-svm-holdout-deep} e \autoref{confusion-matrix-svm-holdout-hand-craft}, podemos notar também que, as imagens em que este método errou, tem uma pequena taxa de confiança, o que poderia ser utilizado para combinar outros indutores:
 	
 	\begin{verbatim}
 	Confundiu "base/humanos/72.jpg" com comida, proba: [0.31407948]
@@ -425,13 +429,13 @@ sumario=tradicional,
 	Confundiu "base/humanos/90.jpg" com praia, proba: [0.49488543]
 	\end{verbatim} 
 	
-	Estas imagens, se deram devido a classificação humana da base ter sido feita erroneamente, pois a imagem "humanos/72.png" não há humanos na foto e sim algo muito parecido com comida, na "humanos/79.png" é uma foto de um lago, também sem nenhum humano presente, na imagem "obras/225.jpg" também existem montanhas na foto, e as fotos "humanos/73.jpg" e "humanos/90.jpg" são fotos de praias e não de humanos.
+	Estes erros, se deram devido a classificação humana da base ter sido feita erroneamente, pois a imagem "humanos/72.png" não há humanos na foto e sim algo muito parecido com comida, na "humanos/79.png" é uma foto de um lago, também sem nenhum humano presente, na imagem "obras/225.jpg" também existem montanhas na foto, e as fotos "humanos/73.jpg" e "humanos/90.jpg"  são fotos de praias e não de humanos, sendo assim, são erros que podem ser considerados.
 	
 	\section{Considerações finais}
 	
-	Em geral os indutores tiveram melhor utilizando a base de caracteríscas usando Deep Learning.
+	Em geral os indutores obtiveram um melhor resultado utilizando a base de caracteríscas extraídas via Deep Learning.
 	
-	O indutor que houve melhor desempenho nesta base é o SVM e que nas poucas imagens em que ele errou da base teste a classificação das imagens estavam classificadas erroneamente na própria base, sendo assim, a técnica encontrou erros de classificação na base e a efetuou a classificação corretamente. 
+	O indutor que houve melhor desempenho nesta base é o SVM em que nas poucas imagens em que ele errou da base teste a classificação das imagens estavam classificadas erroneamente na própria base, sendo assim, a técnica encontrou erros de classificação da base e efetuou a classificação corretamente. 
 	
 	% ----------------------------------------------------------
 	% ELEMENTOS PÓS-TEXTUAIS
